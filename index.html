@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулатор за проектиране - Част Архитектура</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+
+    <button id="theme-toggle" class="action-button theme-toggle-button" title="Превключване на тема (Светла/Тъмна)">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.061l1.59-1.591a.75.75 0 011.062 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.836 17.894a.75.75 0 011.06 0l1.591 1.59a.75.75 0 11-1.06 1.061l-1.59-1.591a.75.75 0 010-1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.061l-1.59 1.591a.75.75 0 01-1.062 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.164 6.106a.75.75 0 01-1.06 0L3.513 4.515a.75.75 0 111.06-1.061l1.591 1.59a.75.75 0 010 1.06z"></path></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.472-.948a.75.75 0 01.82.162l.805.806a.75.75 0 01-.162.82a10.488 10.488 0 01-5.051 2.872.75.75 0 01-.635-.412A8.97 8.97 0 0015 15.75a9 9 0 00-5.948-8.528.75.75 0 01-.412-.635A10.488 10.488 0 012.87 1.987l.806.805a.75.75 0 01.82-.162z" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <h1>Калкулатор за минимална себестойност на проектиране – ЧАСТ АРХИТЕКТУРА</h1>
+    
+    <div class="main-container">
+        <div class="header-controls">
+            <button id="toggleSidebarBtn" class="action-button" title="Покажи/Скрий лентата с инструменти">☰ Настройки</button>
+        </div>
+        <div class="calculator-container">
+            <div class="main-content">
+                <div id="newBuildingsSection" class="section">
+                    <h2>Нови сгради</h2>
+                    <div class="form-group"><label for="buildingType">Вид обект:</label><select id="buildingType" class="calc-input" title="Изберете категорията на сградата от падащото меню"><option value="0">-- Изберете вид --</option><option value="1">Еднофамилна, Двуфамилна жилищна, Вилна сграда</option><option value="2">Многофамилна жилищна сграда</option><option value="3">ОСД, Офиси, Стандартна обществена сграда</option><option value="4">Специализирана обществена сграда</option><option value="5">Навес, Склад, Едно-пространствена сграда без МТ</option><option value="6">Промишлена, Селскостопанска сграда</option></select></div>
+                    <div class="form-group"><label for="buildingArea">РЗП (м²):</label><input type="number" id="buildingArea" placeholder="Въведете площ" class="calc-input" title="Въведете разгънатата застроена площ на обекта в квадратни метри"></div>
+                    <div class="form-group"><label for="designPhase">Фаза на проектиране:</label><select id="designPhase" class="calc-input" title="Изберете фазата на проектиране, за която се изчислява цената"><option value="0">-- Изберете фаза --</option><option value="1">Предпроектно проучване</option><option value="2">Идеен проект</option><option value="3">Технически проект</option><option value="4">Работен проект</option></select></div>
+                </div>
+                <div id="developmentPlansSection" class="section section-hidden">
+                    <h2>Подробни устройствени планове</h2>
+                     <div class="form-group"><label for="planType">Вид ПУП:</label><select id="planType" class="calc-input" title="Изберете вида на Подробния устройствен план"><option value="0">-- Изберете вид ПУП --</option><option value="1">План за застрояване</option><option value="2">План за регулация и застрояване</option><option value="3">Работен устройствен план</option></select></div>
+                    <div class="form-group"><label for="plotCount">Брой (У)ПИ:</label><select id="plotCount" class="calc-input" title="Изберете броя на урегулираните поземлени имоти"><option value="0">-- Изберете брой --</option><option value="1">1</option><option value="2">2 - 4</option><option value="3">≥ 5</option></select></div>
+                    <div class="form-group"><label for="plotArea">Площ (У)ПИ:</label><select id="plotArea" class="calc-input" title="Изберете площта, в която попадат имотите"><option value="0">-- Изберете площ --</option><option value="1">≤ 1 дка</option><option value="2">1 - 5 дка</option><option value="3">5 - 10 дка</option><option value="4">> 10 дка</option></select></div>
+                </div>
+                <div id="hourlyRateSection" class="section section-hidden">
+                    <h2>Часова ставка</h2>
+                    <div class="form-group"><label for="designerType">Тип проектант:</label><select id="designerType" class="calc-input" title="Изберете типа проектант според неговата правоспособност"><option value="0">-- Изберете тип --</option><option value="200.00">С пълна правоспособност</option><option value="162.50">С ограничена правоспособност</option><option value="100.00">За технически сътрудник</option></select></div>
+                    <div class="form-group"><label for="hoursWorked">Брой часове:</label><input type="number" id="hoursWorked" placeholder="Въведете часове" class="calc-input" title="Въведете общия брой часове, вложени в работа"></div>
+                </div>
+                <div class="total-section">
+                    <h2 id="displayObjectName"></h2>
+                    <h2 id="totalHeader">ОБЩО (лв. без ДДС):</h2>
+                    <p id="totalPrice">0.00 лв.</p>
+                    <pre id="calculationLog"></pre>
+                    <div class="button-group">
+                        <button id="printButton" class="action-button">Принтирай</button>
+                        <button id="exportTxtButton" class="action-button">Експорт (.txt)</button>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <h3>Проект</h3>
+                <div class="form-group"><label for="objectName">Име на обект:</label><input type="text" id="objectName" class="calc-input" title="Въведете име на обекта, което ще се покаже в офертата"></div>
+                 <div class="form-group">
+                    <button id="saveButton" class="action-button" title="Запазва текущата калкулация в .json файл">Запази</button>
+                    <button id="loadButton" class="action-button" title="Зарежда предишна калкулация от .json файл">Отвори</button>
+                    <input type="file" id="loadInput" accept=".json" style="display: none;">
+                </div>
+                <hr>
+                <h3>Настройки</h3>
+                <div class="form-group"><button id="openTableBtn" class="action-button" style="width: 100%;" title="Отваря пълната таблица с цени в нов прозорец">Отвори таблица за справка</button></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="toggleNewBuildings" class="calc-input" checked><label for="toggleNewBuildings" title="Включва/Изключва секцията 'Нови сгради' от изчислението">Нови сгради</label></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="toggleDevelopmentPlans" class="calc-input"><label for="toggleDevelopmentPlans" title="Включва/Изключва секцията 'Подробни устройствени планове' от изчислението">Подробни устройствени планове</label></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="toggleHourlyRate" class="calc-input"><label for="toggleHourlyRate" title="Включва/Изключва секцията 'Часова ставка' от изчислението">Часова ставка</label></div>
+                <hr>
+                <h3>Валута</h3>
+                <div class="form-group"><label for="currencyDisplay">Показване на цена:</label><select id="currencyDisplay" class="calc-input" title="Изберете в каква валута да се покаже крайният резултат"><option value="bgn">в лева (лв.)</option><option value="eur">в евро (€)</option><option value="both">в лева (лв.) и евро (€)</option></select></div>
+                <hr>
+                <h3>Допълнителни коефициенти</h3>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="coefVariant" class="calc-input" value="0.5"><label for="coefVariant" title="Добавя 50% към основната цена за изработване на допълнителен вариант">Разработване на варианти (+50%)</label></div>
+                <div class="form-group"><label for="repetitionCount">Общ брой повторения/огледални:</label><input type="number" id="repetitionCount" class="calc-input" placeholder="напр. 3" min="1" title="Въведете ОБЩИЯ брой обекти (оригинал + повторения)"></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="coefReconstructionExisting" class="calc-input" value="1.5"><label for="coefReconstructionExisting" title="Умножава крайната цена с коефициент 1.5">Реконструкция (с налична документация)</label></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="coefReconstructionMissing" class="calc-input" value="2.0"><label for="coefReconstructionMissing" title="Умножава крайната цена с коефициент 2.0">Реконструкция (без налична документация)</label></div>
+                <div class="form-group custom-checkbox"><input type="checkbox" id="coefAccelerated" class="calc-input" value="1.5"><label for="coefAccelerated" title="Умножава крайната цена с коефициент 1.5">Ускорено проектиране</label></div>
+                <hr>
+                <h3>Трудност</h3>
+                <div class="form-group"><label for="difficultyPercent">Процент (+/- %):</label><input type="number" id="difficultyPercent" class="calc-input" placeholder="напр. 10 или -5" step="any" title="Прилага процентна надценка/отстъпка САМО върху цената от 'Нови сгради'"></div>
+                <div class="form-group"><label for="difficultyNotes">Пояснение:</label><textarea id="difficultyNotes" class="calc-input" rows="3" title="Въведете текстов коментар за коефициента на трудност"></textarea></div>
+                <hr>
+                <div class="form-group">
+                    <button id="manualButton" class="action-button" style="width: 100%;">Инструкции за работа</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">© <span id="copyright-year">2025</span> инж. Светлозар Димов. Всички права запазени.</p>
+            <button id="user-icon-button" class="user-icon" title="Контакти">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
+            </button>
+        </div>
+    </footer>
+    
+    <div id="contactModal" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close" id="modalCloseButton">&times;</button>
+            <div class="contact-header">
+                <h2>инж. Светлозар Димов</h2>
+                <p>Проектант - Строителни конструкции</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.279-.087.431l4.287 7.427c.077.152.25.18.431.087l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25C6.542 22.5 1.5 17.458 1.5 10.5V4.5z" clip-rule="evenodd" /></svg>
+                    <a href="tel:0883386003">0883386 003</a>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
+                    <a href="mailto:svetlozar.dimov@gmail.com">svetlozar.dimov@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="priceTableContainer" style="display: none;">
+        <h2>МИНИМАЛНА СЕБЕСТОЙНОСТ ЗА ПРОЕКТИРАНЕ НА НОВИ СГРАДИ – ЧАСТ АРХИТЕКТУРА</h2>
+        <table border="1"><thead><tr><th>ВИД ОБЕКТ</th><th>БР. РЗП (м²)</th><th>ПРЕДПРОЕКТНО ПРОУЧВАНЕ (€/лв.)</th><th>ИДЕЕН ПРОЕКТ (€/лв.)</th><th>ТЕХНИЧЕСКИ ПРОЕКТ (€/лв.)</th><th>РАБОТЕН ПРОЕКТ (€/лв.)</th><th>МЯРКА</th></tr></thead><tbody>
+            <tr class="table-cat-single-family"><td rowspan="5">ЕДНОФАМИЛНА, ДВУФАМИЛНА ЖИЛИЩНА, ВИЛНА СГРАДА</td><td>≤ 100</td><td>150 / 293,37</td><td>750 / 1466,87</td><td>1500 / 2933,75</td><td>2250 / 4400,62</td><td>мин. цена</td></tr>
+            <tr class="table-cat-single-family"><td>100-200</td><td>1,5 / 2,93</td><td>7,5 / 14,67</td><td>15 / 29,34</td><td>22,5 / 44,01</td><td>цена / м²</td></tr>
+            <tr class="table-cat-single-family"><td>200-300</td><td>1,2 / 2,35</td><td>6,0 / 11,73</td><td>12 / 23,47</td><td>18,0 / 35,20</td><td>цена / м²</td></tr>
+            <tr class="table-cat-single-family"><td>300-500</td><td>1,1 / 2,15</td><td>5,5 / 10,76</td><td>11 / 21,51</td><td>16,5 / 32,27</td><td>цена / м²</td></tr>
+            <tr class="table-cat-single-family"><td>> 500</td><td>1,0 / 1,96</td><td>5,0 / 9,78</td><td>10 / 19,56</td><td>15,0 / 29,34</td><td>цена / м²</td></tr>
+            <tr class="table-cat-multi-family"><td rowspan="5">МНОГОФАМИЛНА ЖИЛИЩНА СГРАДА</td><td>≤ 500</td><td>500 / 977,92</td><td>2500 / 4889,58</td><td>5000 / 9779,15</td><td>7500 / 14668,73</td><td>мин. цена</td></tr>
+            <tr class="table-cat-multi-family"><td>500-1000</td><td>1,0 / 1,96</td><td>5,0 / 9,78</td><td>10 / 19,56</td><td>15,0 / 29,34</td><td>цена / м²</td></tr>
+            <tr class="table-cat-multi-family"><td>1000-2500</td><td>0,8 / 1,56</td><td>4,0 / 7,82</td><td>8 / 15,65</td><td>12,0 / 23,47</td><td>цена / м²</td></tr>
+            <tr class="table-cat-multi-family"><td>2500-5000</td><td>0,7 / 1,37</td><td>3,5 / 6,85</td><td>7 / 13,69</td><td>10,5 / 20,54</td><td>цена / м²</td></tr>
+            <tr class="table-cat-multi-family"><td>> 5000</td><td>0,6 / 1,17</td><td>3,0 / 5,87</td><td>6 / 11,73</td><td>9,0 / 17,60</td><td>цена / м²</td></tr>
+            <tr class="table-cat-standard-public"><td rowspan="5">ОСД, ОФИСИ, СТАНДАРТНА ОБЩЕСТВЕНА СГРАДА</td><td>≤ 150</td><td>150 / 293,37</td><td>750 / 1466,87</td><td>1500 / 2933,75</td><td>2250 / 4400,62</td><td>мин. цена</td></tr>
+            <tr class="table-cat-standard-public"><td>150-500</td><td>1,0 / 1,96</td><td>5,0 / 9,78</td><td>10 / 19,56</td><td>15,0 / 29,34</td><td>цена / м²</td></tr>
+            <tr class="table-cat-standard-public"><td>500-1000</td><td>0,8 / 1,56</td><td>4,0 / 7,82</td><td>8 / 15,65</td><td>12,0 / 23,47</td><td>цена / м²</td></tr>
+            <tr class="table-cat-standard-public"><td>1000-2500</td><td>0,7 / 1,37</td><td>3,5 / 6,85</td><td>7 / 13,69</td><td>10,5 / 20,54</td><td>цена / м²</td></tr>
+            <tr class="table-cat-standard-public"><td>> 2500</td><td>0,6 / 1,17</td><td>3,0 / 5,87</td><td>6 / 11,73</td><td>9,0 / 17,60</td><td>цена / м²</td></tr>
+            <tr class="table-cat-special-public"><td rowspan="5">СПЕЦИАЛИЗИРАНА ОБЩЕСТВЕНА СГРАДА</td><td>≤ 150</td><td>195 / 381,39</td><td>975 / 1906,93</td><td>1950 / 3813,87</td><td>2925 / 5720,80</td><td>мин. цена</td></tr>
+            <tr class="table-cat-special-public"><td>150-500</td><td>1,3 / 2,54</td><td>6,5 / 12,71</td><td>13 / 25,43</td><td>19,5 / 38,14</td><td>цена / м²</td></tr>
+            <tr class="table-cat-special-public"><td>500-1000</td><td>1,1 / 2,15</td><td>5,5 / 10,76</td><td>11 / 21,51</td><td>16,5 / 32,27</td><td>цена / м²</td></tr>
+            <tr class="table-cat-special-public"><td>1000-2500</td><td>1,0 / 1,96</td><td>5,0 / 9,78</td><td>10 / 19,56</td><td>15,0 / 29,34</td><td>цена / м²</td></tr>
+            <tr class="table-cat-special-public"><td>> 2500</td><td>0,9 / 1,76</td><td>4,5 / 8,80</td><td>9 / 17,60</td><td>13,5 / 26,40</td><td>цена / м²</td></tr>
+            <tr class="table-cat-warehouse"><td rowspan="5">НАВЕС, СКЛАД, ЕДНО-ПРОСТРАНСТВЕНА СГРАДА БЕЗ МТ</td><td>≤ 150</td><td>135 / 264,04</td><td>675 / 1320,19</td><td>1350 / 2640,37</td><td>2025 / 3960,56</td><td>мин. цена</td></tr>
+            <tr class="table-cat-warehouse"><td>150-500</td><td>0,9 / 1,76</td><td>4,5 / 8,80</td><td>9 / 17,60</td><td>13,5 / 26,40</td><td>цена / м²</td></tr>
+            <tr class="table-cat-warehouse"><td>500-1000</td><td>0,7 / 1,37</td><td>3,5 / 6,85</td><td>7 / 13,69</td><td>10,5 / 20,54</td><td>цена / м²</td></tr>
+            <tr class="table-cat-warehouse"><td>1000-2500</td><td>0,6 / 1,17</td><td>3,0 / 5,87</td><td>6 / 11,73</td><td>9,0 / 17,60</td><td>цена / м²</td></tr>
+            <tr class="table-cat-warehouse"><td>> 2500</td><td>0,5 / 0,98</td><td>2,5 / 4,89</td><td>5 / 9,78</td><td>7,5 / 14,67</td><td>цена / м²</td></tr>
+            <tr class="table-cat-industrial"><td rowspan="5">ПРОМИШЛЕНА, СЕЛСКОСТОПАНСКА СГРАДА С МТ</td><td>≤ 150</td><td>180 / 352,05</td><td>900 / 1760,25</td><td>1800 / 3520,49</td><td>2700 / 5280,74</td><td>мин. цена</td></tr>
+            <tr class="table-cat-industrial"><td>150-500</td><td>1,2 / 2,35</td><td>6,0 / 11,73</td><td>12 / 23,47</td><td>18,0 / 35,20</td><td>цена / м²</td></tr>
+            <tr class="table-cat-industrial"><td>500-1000</td><td>1,0 / 1,96</td><td>5,0 / 9,78</td><td>10 / 19,56</td><td>15,0 / 29,34</td><td>цена / м²</td></tr>
+            <tr class="table-cat-industrial"><td>1000-2500</td><td>0,9 / 1,76</td><td>4,5 / 8,80</td><td>9 / 17,60</td><td>13,5 / 26,40</td><td>цена / м²</td></tr>
+            <tr class="table-cat-industrial"><td>> 2500</td><td>0,8 / 1,56</td><td>4,0 / 7,82</td><td>8 / 15,65</td><td>12,0 / 23,47</td><td>цена / м²</td></tr>
+        </tbody></table>
+        <h2>МИНИМАЛНА СЕБЕСТОЙНОСТ ЗА ПРОЕКТИРАНЕ НА ПОДРОБНИ УСТРОЙСТВЕНИ ПЛАНОВЕ – ЧАСТ АРХИТЕКТУРА</h2>
+        <table><thead><tr><th>ВИД ПУП</th><th>БРОЙ (У)ПИ</th><th>≤ 1 дка (€/лв.)</th><th>1 - 5 дка (€/лв.)</th><th>5 - 10 дка (€/лв.)</th><th>> 10 дка (€/лв.)</th><th>МЯРКА</th></tr></thead><tbody>
+            <tr class="table-cat-pup"><td rowspan="3">ПЛАН ЗА ЗАСТРОЯВАНЕ</td><td>1</td><td>500 / 977,92</td><td>750 / 1466,87</td><td>1000 / 1955,83</td><td>1250 / 2444,79</td><td>мин. цена</td></tr>
+            <tr class="table-cat-pup"><td>2-4</td><td>300 / 586,75</td><td>450 / 880,12</td><td>600 / 1173,50</td><td>750 / 1466,87</td><td>цена / бр.</td></tr>
+            <tr class="table-cat-pup"><td>≥ 5</td><td>250 / 488,96</td><td>375 / 733,44</td><td>500 / 977,92</td><td>625 / 1222,39</td><td>цена / бр.</td></tr>
+            <tr class="table-cat-pup"><td rowspan="3">ПЛАН ЗА РЕГУЛАЦИЯ И ЗАСТРОЯВАНЕ</td><td>1</td><td>600 / 1173,50</td><td>900 / 1760,25</td><td>1200 / 2347,00</td><td>1500 / 2933,75</td><td>мин. цена</td></tr>
+            <tr class="table-cat-pup"><td>2-4</td><td>350 / 684,54</td><td>525 / 1026,81</td><td>700 / 1369,08</td><td>875 / 1711,35</td><td>цена / бр.</td></tr>
+            <tr class="table-cat-pup"><td>≥ 5</td><td>300 / 586,75</td><td>450 / 880,12</td><td>600 / 1173,50</td><td>750 / 1466,87</td><td>цена / бр.</td></tr>
+            <tr class="table-cat-pup"><td rowspan="3">РАБОТЕН УСТРОЙСТВЕН ПЛАН</td><td>1</td><td>800 / 1564,66</td><td>1200 / 2347,00</td><td>1600 / 3129,33</td><td>2000 / 3911,66</td><td>мин. цена</td></tr>
+            <tr class="table-cat-pup"><td>2-4</td><td>450 / 880,12</td><td>675 / 1320,19</td><td>900 / 1760,25</td><td>1125 / 2200,31</td><td>цена / бр.</td></tr>
+            <tr class="table-cat-pup"><td>≥ 5</td><td>400 / 782,33</td><td>600 / 1173,50</td><td>800 / 1564,66</td><td>1000 / 1955,83</td><td>цена / бр.</td></tr>
+        </tbody></table>
+        <table><thead><tr><th>ЧАСОВА СТАВКА ЗА ПРОЕКТАНТИ</th><th>€</th><th>лв.</th><th>ЦЕНА/ЧАС БЕЗ ДДС</th></tr></thead><tbody>
+            <tr class="table-cat-hourly"><td>С ПЪЛНА ПРАВОСПОСОБНОСТ</td><td>102,26</td><td>200,00</td><td></td></tr>
+            <tr class="table-cat-hourly"><td>С ОГРАНИЧЕНА ПРАВОСПОСОБНОСТ</td><td>83,08</td><td>162,50</td><td></td></tr>
+            <tr class="table-cat-hourly"><td>ЗА ТЕХНИЧЕСКИ СЪТРУДНИК</td><td>51,13</td><td>100,00</td><td></td></tr>
+        </tbody></table>
+        <table><thead><tr><th>ДОПЪЛНИТЕЛНИ КОЕФИЦИЕНТИ ЗА СПЕЦИАЛНИ УСЛОВИЯ</th><th>КОЕФИЦИЕНТ</th></tr></thead><tbody>
+            <tr><td>РАЗРАБОТВАНЕ НА ВАРИАНТИ (ЗА ВСЕКИ СЛЕДВАЩ)</td><td>0,5</td></tr>
+            <tr><td>ДОПЪЛНИТЕЛНИ ПОВТОРЕНИЯ НА ПРОЕКТА (2-5 ПОВТОРЕНИЯ / ОГЛЕДАЛЕН ОБРАЗ)</td><td>0,5</td></tr>
+            <tr><td>ДОПЪЛНИТЕЛНИ ПОВТОРЕНИЯ НА ПРОЕКТА (≥ 6 ПОВТОРЕНИЯ)</td><td>0,4</td></tr>
+            <tr><td>РЕКОНСТРУКЦИИ И ПРЕУСТРОЙСТВА (С НАЛИЧНА ДОКУМЕНТАЦИЯ)</td><td>1,5</td></tr>
+            <tr><td>РЕКОНСТРУКЦИИ И ПРЕУСТРОЙСТВА (БЕЗ НАЛИЧНА ДОКУМЕНТАЦИЯ)</td><td>2,0</td></tr>
+            <tr><td>СЪКРАТЕНИ СРОКОВЕ (УСКОРЕНО ПРОЕКТИРАНЕ)</td><td>1,5</td></tr>
+        </tbody></table>
+    </div>
+    
+    <script src="data.js" defer></script>
+    <script src="ui.js" defer></script>
+    <script src="calculator.js" defer></script>
+    <script src="main.js" defer></script>
+
+</body>
+</html>
