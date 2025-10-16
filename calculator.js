@@ -1,14 +1,11 @@
-// Този файл съдържа само логиката за изчисление. Не променя нищо на екрана.
 const Calculator = {
     calculate(inputs) {
         let newBuildingPrice = 0, pupPrice = 0, hourlyPrice = 0;
         let log = [];
         let hintMessages = [];
 
-        // --- ЧАСТ 1: Изчисляване на базовите цени за всяка секция ---
-
         if (inputs.toggleNewBuildings) {
-            const isComplete = inputs.buildingType !== "0" && !isNaN(inputs.area) && inputs.area > 0 && inputs.phase !== 0;
+            const isComplete = inputs.buildingType !== "0" && inputs.area > 0 && inputs.phase !== 0;
             if (isComplete) {
                 const prices = newBuildingPrices[inputs.buildingType];
                 const minArea = parseFloat(Object.keys(prices.min)[0]);
@@ -30,44 +27,45 @@ const Calculator = {
         }
 
         if (inputs.toggleDevelopmentPlans) {
-            const isComplete = inputs.planType !== "0" && inputs.plotCount !== "0" && inputs.plotArea !== "0";
+            const isComplete = inputs.planType !== "0" && inputs.plotCount > 0 && inputs.plotArea !== "0";
             if (isComplete) {
-                pupPrice = planPrices[inputs.planType][inputs.plotCount][inputs.plotArea - 1];
-                log.push(`ПУП: ${pupPrice.toFixed(2)} лв.`);
+                let plotCountCategory;
+                if (inputs.plotCount === 1) plotCountCategory = 1;
+                else if (inputs.plotCount >= 2 && inputs.plotCount <= 4) plotCountCategory = 2;
+                else plotCountCategory = 3;
+                
+                const pricePerPlot = planPrices[inputs.planType][plotCountCategory][inputs.plotArea - 1];
+                pupPrice = pricePerPlot * inputs.plotCount;
+                log.push(`ПУП (${inputs.plotCount} бр.): ${inputs.plotCount} * ${pricePerPlot.toFixed(2)} лв./бр. = ${pupPrice.toFixed(2)} лв.`);
             } else {
-                hintMessages.push("Попълнете вид ПУП, брой и площ.");
+                hintMessages.push("Попълнете вид ПУП, брой и площ на имотите.");
             }
         }
 
         if (inputs.toggleHourlyRate) {
-            const isComplete = parseFloat(inputs.designerType) > 0 && !isNaN(inputs.hours) && inputs.hours > 0;
+            const isComplete = parseFloat(inputs.designerType) > 0 && inputs.hours > 0;
             if (isComplete) {
                 const rate = parseFloat(inputs.designerType);
                 hourlyPrice = rate * inputs.hours;
-                log.push(`Часова ставка: ${hourlyPrice.toFixed(2)} лв.`);
+                log.push(`Часова ставка: ${inputs.hours} ч. * ${(rate).toFixed(2)} лв./ч. = ${hourlyPrice.toFixed(2)} лв.`);
             } else {
                 hintMessages.push("Попълнете тип проектант и часове.");
             }
         }
 
-        // Ако няма никакви изчислени цени, показваме само съобщенията
         const totalBasePrice = newBuildingPrice + pupPrice + hourlyPrice;
         if (totalBasePrice === 0 && hintMessages.length > 0) {
             return { hintMessages, log: [], currentTotal: 0 };
         }
         
-        // --- ЧАСТ 2: Прилагане на коефициенти САМО върху цената за "Нови сгради" ---
-        
         let adjustedBuildingPrice = newBuildingPrice;
         let coefLog = [];
-
-        // Базата за коефициентите, които добавят процент (варианти, повторения), е ВИНАГИ оригиналната цена.
         const buildingsBaseForCoef = newBuildingPrice;
 
         if (inputs.difficultyPercent !== 0 && buildingsBaseForCoef > 0) {
             const difficultyAddition = buildingsBaseForCoef * (inputs.difficultyPercent / 100);
             adjustedBuildingPrice += difficultyAddition;
-            let logMsg = `+ Трудност (${inputs.difficultyPercent > 0 ? '+' : ''}${inputs.difficultyPercent}% от Нови сгради): ${difficultyAddition.toFixed(2)} лв.`;
+            let logMsg = `+ Трудност (${inputs.difficultyPercent > 0 ? '+' : ''}${inputs.difficultyPercent}%): ${difficultyAddition.toFixed(2)} лв.`;
             if (inputs.difficultyNotes) logMsg += ` (${inputs.difficultyNotes})`;
             coefLog.push(logMsg);
         }
@@ -87,27 +85,24 @@ const Calculator = {
         }
 
         const multCheckboxes = [
-            { checked: inputs.coefReconstructionExisting, text: 'Реконструкция (с налична документация)', value: 1.5 },
-            { checked: inputs.coefReconstructionMissing, text: 'Реконструкция (без налична документация)', value: 2.0 },
+            { checked: inputs.coefReconstructionExisting, text: 'Реконструкция (с налична док.)', value: 1.5 },
+            { checked: inputs.coefReconstructionMissing, text: 'Реконструкция (без налична док.)', value: 2.0 },
             { checked: inputs.coefAccelerated, text: 'Ускорено проектиране', value: 1.5 }
         ];
 
-        // Коефициентите, които умножават, се прилагат върху вече коригираната цена
         multCheckboxes.forEach(cb => {
             if (cb.checked && newBuildingPrice > 0) {
+                const priceBeforeMult = adjustedBuildingPrice;
                 adjustedBuildingPrice *= cb.value;
-                coefLog.push(`* ${cb.text}: x${cb.value}`);
+                coefLog.push(`* ${cb.text}: ${priceBeforeMult.toFixed(2)} лв. * ${cb.value} = ${adjustedBuildingPrice.toFixed(2)} лв.`);
             }
         });
 
         if (coefLog.length > 0) {
             log.push(`<b>Коефициенти (приложени към 'Нови сгради'):</b>\n${coefLog.join('\n')}`);
-            log.push(`<b>Коригирана цена 'Нови сгради': ${adjustedBuildingPrice.toFixed(2)} лв.</b>`);
         }
 
-        // --- ЧАСТ 3: Изчисляване на финалната сума ---
         const finalTotal = adjustedBuildingPrice + pupPrice + hourlyPrice;
-
         const summaryParts = [];
         if (adjustedBuildingPrice > 0) summaryParts.push(`${adjustedBuildingPrice.toFixed(2)} лв. (Сгради)`);
         if (pupPrice > 0) summaryParts.push(`${pupPrice.toFixed(2)} лв. (ПУП)`);

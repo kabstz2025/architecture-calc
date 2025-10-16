@@ -30,7 +30,10 @@
                 <div id="developmentPlansSection" class="section section-hidden">
                     <h2>Подробни устройствени планове</h2>
                      <div class="form-group"><label for="planType">Вид ПУП:</label><select id="planType" class="calc-input" title="Изберете вида на Подробния устройствен план"><option value="0">-- Изберете вид ПУП --</option><option value="1">План за застрояване</option><option value="2">План за регулация и застрояване</option><option value="3">Работен устройствен план</option></select></div>
-                    <div class="form-group"><label for="plotCount">Брой (У)ПИ:</label><select id="plotCount" class="calc-input" title="Изберете броя на урегулираните поземлени имоти"><option value="0">-- Изберете брой --</option><option value="1">1</option><option value="2">2 - 4</option><option value="3">≥ 5</option></select></div>
+                    <div class="form-group">
+                        <label for="plotCount">Брой (У)ПИ:</label>
+                        <input type="number" id="plotCount" class="calc-input" placeholder="Въведете брой" min="1" title="Въведете общия брой на урегулираните поземлени имоти">
+                    </div>
                     <div class="form-group"><label for="plotArea">Площ (У)ПИ:</label><select id="plotArea" class="calc-input" title="Изберете площта, в която попадат имотите"><option value="0">-- Изберете площ --</option><option value="1">≤ 1 дка</option><option value="2">1 - 5 дка</option><option value="3">5 - 10 дка</option><option value="4">> 10 дка</option></select></div>
                 </div>
                 <div id="hourlyRateSection" class="section section-hidden">
@@ -55,6 +58,7 @@
                  <div class="form-group">
                     <button id="saveButton" class="action-button" title="Запазва текущата калкулация в .json файл">Запази</button>
                     <button id="loadButton" class="action-button" title="Зарежда предишна калкулация от .json файл">Отвори</button>
+                    <button id="resetButton" class="action-button" title="Изчиства всички полета и нулира калкулацията">Изчисти</button>
                     <input type="file" id="loadInput" accept=".json" style="display: none;">
                 </div>
                 <hr>
@@ -97,19 +101,10 @@
     <div id="contactModal" class="modal-backdrop">
         <div class="modal-content">
             <button class="modal-close" id="modalCloseButton">&times;</button>
-            <div class="contact-header">
-                <h2>инж. Светлозар Димов</h2>
-                <p>Проектант - Строителни конструкции</p>
-            </div>
+            <div class="contact-header"><h2>инж. Светлозар Димов</h2><p>Проектант - Строителни конструкции</p></div>
             <div class="contact-info">
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.279-.087.431l4.287 7.427c.077.152.25.18.431.087l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25C6.542 22.5 1.5 17.458 1.5 10.5V4.5z" clip-rule="evenodd" /></svg>
-                    <a href="tel:0883386003">0883386 003</a>
-                </div>
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
-                    <a href="mailto:svetlozar.dimov@gmail.com">svetlozar.dimov@gmail.com</a>
-                </div>
+                <div class="contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.279-.087.431l4.287 7.427c.077.152.25.18.431.087l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25C6.542 22.5 1.5 17.458 1.5 10.5V4.5z" clip-rule="evenodd" /></svg><a href="tel:0883386003">0883386 003</a></div>
+                <div class="contact-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg><a href="mailto:svetlozar.dimov@gmail.com">svetlozar.dimov@gmail.com</a></div>
             </div>
         </div>
     </div>
@@ -175,10 +170,10 @@
         </tbody></table>
     </div>
     
-    <script src="data.js" defer></script>
-    <script src="ui.js" defer></script>
-    <script src="calculator.js" defer></script>
-    <script src="main.js" defer></script>
+    <script src="data.js"></script>
+    <script src="calculator.js"></script>
+    <script src="ui.js"></script>
+    <script src="main.js"></script>
 
 </body>
 </html>
