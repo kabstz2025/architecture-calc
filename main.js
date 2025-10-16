@@ -67,9 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetState() {
         if (confirm("Сигурни ли сте, че искате да изчистите всички полета?")) {
             document.querySelectorAll('.calc-input').forEach(input => {
-                if (input.type === 'checkbox') input.checked = (input.id === 'toggleNewBuildings');
-                else if (input.tagName === 'SELECT') input.selectedIndex = 0;
-                else input.value = '';
+                if (input.type === 'checkbox') {
+                    // Коригирана логика: изрично задава true/false
+                    if (input.id === 'toggleNewBuildings') {
+                        input.checked = true;
+                    } else {
+                        input.checked = false;
+                    }
+                } else if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                } else {
+                    input.value = '';
+                }
             });
             runUpdate();
         }
